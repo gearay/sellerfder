@@ -9,22 +9,20 @@ import urllib.parse
 import json
 from functools import reduce
 
-if __name__ == "__main__":
-    keywords = []
-    sellers = []
-    for keyword in iter(input, ''):
-        keywords.append(keyword)
 
+def fdseller(keywords):
+    sellers = []
+    # print(keywords[0])
     for item in keywords:
 
         seller = set()
-        for page in range(0, 450, 15):
+        for page in range(0, 750, 15):
             postdata = {
                 'q': item,
                 'js': '1',
                 'ie': 'utf8',
                 'uniq': 'shop',
-                        'sort': 'credit-desc',
+                'sort': 'credit-desc',
                 's': page
 
             }
@@ -40,7 +38,7 @@ if __name__ == "__main__":
                 product = json.loads(content1[0])
                 productfiles = product['mods']['itemlist']['data']['sellers']
                 for productfile in productfiles:
-                    seller.add(productfile['nick'])
+                    seller.add(productfile['user_id'])
 
             except Exception as e:
                 if hasattr(e, 'code'):
@@ -51,5 +49,13 @@ if __name__ == "__main__":
                 next
         # print(seller)
         sellers.append(seller)
-    # print(sellers)
-    print(reduce(lambda x, y: x & y, sellers))
+    # return(sellers)
+    return reduce(lambda x, y: x & y, sellers)
+
+if __name__ == "__main__":
+    keys = []
+    for keyword in iter(input, ''):
+        keys.append(keyword)
+    fdsellers = fdseller(keys)
+    for fd in fdsellers:
+        print('https://store.taobao.com/shop/view_shop.htm?user_number_id=%s' % fd)

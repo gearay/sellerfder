@@ -2,4 +2,4 @@
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
 
-s.taobao.com	FALSE	/	FALSE		JSESSIONID	F6EAB0706C35B8631FE2C09EB00A54FB
+s.taobao.com	FALSE	/	FALSE		JSESSIONID	D5691713A32C76F4DF9FD5B13200750A
