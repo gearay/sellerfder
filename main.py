@@ -5,7 +5,7 @@
 
 from webopener import getHtml
 import re
-import urllib.parse
+import urllib
 import json
 from functools import reduce
 
@@ -26,8 +26,7 @@ def fdseller(keywords):
                 's': page
 
             }
-            # print(seller)
-            postdata = urllib.parse.urlencode(postdata)
+            postdata = urllib.urlencode(postdata)
             taobao = "https://s.taobao.com/search?" + postdata
             # print(taobao)
             try:
@@ -54,7 +53,7 @@ def fdseller(keywords):
 
 if __name__ == "__main__":
     keys = []
-    for keyword in iter(input, ''):
+    for keyword in iter(raw_input, ''):
         keys.append(keyword)
     fdsellers = fdseller(keys)
     for fd in fdsellers:

@@ -6,11 +6,12 @@
 # @Version : $Id$
 
 
-from urllib import request
-import http.cookiejar
+import urllib
+import urllib2
+import cookielib
 import os
-import urllib.request
-import urllib.parse
+# import urllib.request
+# import urllib.parse
 
 # with request.urlopen('file:///Users/garychen/Documents/python%20demo/jiangmeijia2008.html') as webfile:
 #     html = webfile.read()
@@ -32,7 +33,7 @@ def getHtml(url, daili='', postdata={}):
     filename = 'cookie.txt'
 
     # 声明一个MozillaCookieJar对象实例保存在文件中
-    cj = http.cookiejar.MozillaCookieJar(filename)
+    cj = cookielib.MozillaCookieJar(filename)
     # cj =http.cookiejar.LWPCookieJar(filename)
 
     # 从文件中读取cookie内容到变量
@@ -47,15 +48,15 @@ def getHtml(url, daili='', postdata={}):
         cookie = open('subcookie.txt', 'r').read()
     else:
         cookie = 'bbb'    # 建造带有COOKIE处理器的打开专家
-    proxy_support = urllib.request.ProxyHandler({'http': 'http://' + daili})
+    proxy_support = urllib2.ProxyHandler({'http': 'http://' + daili})
     # 开启代理支持
     if daili:
         print('代理:' + daili + '启动')
-        opener = urllib.request.build_opener(
-            proxy_support, urllib.request.HTTPCookieProcessor(cj), urllib.request.HTTPHandler)
+        opener = urllib2.build_opener(
+            proxy_support, urllib2.HTTPCookieProcessor(cj), urllib2.HTTPHandler)
     else:
-        opener = urllib.request.build_opener(
-            urllib.request.HTTPCookieProcessor(cj))
+        opener = urllib2.build_opener(
+            urllib2.HTTPCookieProcessor(cj))
 
     # 打开专家加头部
     opener.addheaders = [('User-Agent',
@@ -67,16 +68,16 @@ def getHtml(url, daili='', postdata={}):
                          ]
 
     # 分配专家
-    urllib.request.install_opener(opener)
+    urllib2.install_opener(opener)
     # 有数据需要POST
     if postdata:
         # 数据URL编码
         postdata = urllib.parse.urlencode(postdata)
 
         # 抓取网页
-        html_bytes = urllib.request.urlopen(url, postdata.encode()).read()
+        html_bytes = urllib2.urlopen(url, postdata.encode()).read()
     else:
-        html_bytes = urllib.request.urlopen(url).read()
+        html_bytes = urllib2.urlopen(url).read()
 
     # 保存COOKIE到文件中
     cj.save(ignore_discard=True, ignore_expires=True)
