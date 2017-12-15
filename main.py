@@ -16,7 +16,7 @@ def fdseller(keywords,n):
     for item in keywords:
 
         seller = set()
-        for page in range(0,15*n, 15):
+        for page in range(0,15*n, 15):  #list start from 0, then add 15 for every page 
             postdata = {
                 'q': item,
                 'js': '1',
