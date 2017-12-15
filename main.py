@@ -28,7 +28,7 @@ def fdseller(keywords,n):
             }
             postdata = urllib.urlencode(postdata)
             taobao = "https://s.taobao.com/search?" + postdata
-            print(taobao)
+            #print(taobao)
             try:
                 content1 = getHtml(taobao)
                 content1 = content1.decode('utf-8', 'ignore')
